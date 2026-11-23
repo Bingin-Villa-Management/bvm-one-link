@@ -45,6 +45,14 @@ main{padding:18px 16px 28px;max-width:560px;margin:0 auto}
 .pill{flex:0 0 auto;font-size:14px;font-weight:700;color:var(--deep);background:var(--muted);border-radius:999px;padding:5px 10px}
 .note{display:none;margin:-4px 0 14px;padding:12px 14px;border-radius:12px;background:var(--deep);border-left:3px solid var(--gold);font-size:15px;line-height:1.4}
 .note.show{display:block}
+/* Dua ubin berdampingan (Reza 23 Nov 08:59). Catatan "Segera hadir" selebar penuh; dense mengisi celah di sebelahnya. */
+#tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;grid-auto-flow:row dense}
+#tiles .tile{position:relative;flex-direction:column;align-items:flex-start;gap:10px;min-height:150px;margin:0;padding:14px}
+#tiles .tile .tx{flex:0 0 auto;width:100%;padding-right:4px}
+#tiles .tile b{font-size:18px;line-height:1.2}
+#tiles .tile .go{position:absolute;top:12px;right:14px}
+#tiles .tile .pill{margin-top:auto}
+#tiles .note{grid-column:1 / -1;margin:0}
 footer{text-align:center;font-size:14px;color:var(--muted);padding:6px 16px 22px}
 
 /* Layar app: iframe penuh. Halaman sendiri tidak pernah menggulir saat app terbuka. */
