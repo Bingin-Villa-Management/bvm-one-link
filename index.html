@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>BVM ONE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1F3B31">
+<meta name="color-scheme" content="dark">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="BVM ONE">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="referrer" content="no-referrer-when-downgrade">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&amp;display=swap">
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://script.googleusercontent.com">
+<style>
+:root{--ground:#0F2119;--panel:#16302A;--gold:#C9A55C;--cream:#F7F4EC;--muted:#A9B8B0;--green:#1F3B31;--deep:#142A22;--line:#2C4A3F;--font:Outfit,"Segoe UI",Arial,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;min-height:100%;background:var(--ground);color:var(--cream);font-family:var(--font);-webkit-tap-highlight-color:transparent}
+[hidden]{display:none !important}
+header{background:var(--green);padding:18px 16px 20px;border-bottom:2px solid var(--gold)}
+.top{display:flex;align-items:center;justify-content:space-between;min-height:48px}
+.lang{display:flex;border:1.5px solid var(--gold);border-radius:999px;overflow:hidden}
+.lang button{font:700 14px var(--font);min-width:48px;min-height:48px;border:0;background:transparent;color:var(--cream);cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--gold);color:var(--deep)}
+.word{font-size:40px;font-weight:800;line-height:1;margin-top:14px}
+.word b{color:#fff;font-weight:800}.word i{font-style:normal;color:var(--gold)}
+.hello{margin-top:8px;font-size:16px;color:var(--muted)}
+main{padding:18px 16px 28px;max-width:560px;margin:0 auto}
+.lbl{font-size:14px;font-weight:700;letter-spacing:.12em;color:var(--gold);margin:4px 0 12px}
+.tile{display:flex;align-items:center;gap:14px;width:100%;min-height:76px;padding:14px 16px;margin:0 0 12px;border-radius:14px;
+  border:1.5px solid var(--line);background:var(--panel);color:var(--cream);text-decoration:none;font:500 16px var(--font);text-align:left;cursor:pointer}
+.tile .ic{flex:0 0 46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--deep)}
+.tile .tx{flex:1;min-width:0}
+.tile b{display:block;font-size:19px;font-weight:700}
+.tile small{display:block;font-size:14px;color:var(--muted);margin-top:2px}
+.tile .go{flex:0 0 auto;font-size:26px;color:var(--gold);line-height:1}
+.tile.on{border-color:var(--gold);background:var(--green)}
+.tile.on .ic{background:var(--gold)}
+.tile.soon{opacity:.82}
+.pill{flex:0 0 auto;font-size:14px;font-weight:700;color:var(--deep);background:var(--muted);border-radius:999px;padding:5px 10px}
+.note{display:none;margin:-4px 0 14px;padding:12px 14px;border-radius:12px;background:var(--deep);border-left:3px solid var(--gold);font-size:15px;line-height:1.4}
+.note.show{display:block}
+footer{text-align:center;font-size:14px;color:var(--muted);padding:6px 16px 22px}
+
+/* Layar app: iframe penuh. Halaman sendiri tidak pernah menggulir saat app terbuka. */
+#appview{position:fixed;inset:0;background:var(--green);z-index:5}
+#app{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#fff}
+#splash{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:0 16px;overflow:hidden;
+  background:radial-gradient(circle at 50% 42%,#1F3B31 0%,#1F3B31 48%,#142A22 100%);color:#F7F3E8;font:500 15px/1.4 var(--font);transition:opacity .25s ease;z-index:2}
+#splash .halo{position:absolute;left:50%;top:50%;width:360px;height:360px;margin:-210px 0 0 -180px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,165,92,.34) 0%,rgba(201,165,92,.12) 38%,rgba(201,165,92,0) 68%)}
+#splash .mark,#splash .sw,#splash .sub,#splash .slow{position:relative}
+#splash .glow{filter:drop-shadow(0 0 14px rgba(201,165,92,.55)) drop-shadow(0 0 34px rgba(201,165,92,.30))}
+#splash .sw{font-size:54px;font-weight:800;line-height:1}
+#splash .sw b{font-weight:800;color:#fff}#splash .sw i{font-style:normal;color:#C9A55C}
+#splash .sub{font-size:14px;font-weight:700;letter-spacing:.2em;color:#C9A55C;text-align:center}
+#splash.hide{opacity:0;pointer-events:none}
+#splash .slow{display:none;max-width:280px;text-align:center;color:#cfd8d3;font-weight:400;font-size:14px}
+#splash.late .slow{display:block}
+#splash button{font:700 16px var(--font);color:#1F3B31;background:#F7F3E8;border:0;border-radius:8px;min-height:48px;min-width:48px;padding:10px 18px;margin-top:10px}
+</style>
+</head>
+<body>
+<div id="home">
+<header>
+  <div class="top">
+    <svg width="40" height="50" viewBox="0 0 220 272" aria-hidden="true"><path d="M0 0H220V128C220 206 165 250 110 272C55 250 0 206 0 128Z" fill="#C9A55C"/><path d="M0 0H220V128C220 206 165 250 110 272C55 250 0 206 0 128Z" fill="#1F3B31" transform="translate(110 136) scale(0.9) translate(-110 -136)"/><path d="M74 74 L106 46 H128 V200 H106 V82 L86 96 Z" fill="#C9A55C"/><path d="M128 162 H154 V176 H128 Z" fill="#C9A55C"/><path d="M128 184 H146 V200 H128 Z" fill="#C9A55C"/></svg>
+    <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="en">EN</button><button type="button" data-lang="id">ID</button></div>
+  </div>
+  <div class="word" aria-label="BVM ONE"><b>BVM</b><i>ONE</i></div>
+  <div class="hello" data-t="hello"></div>
+</header>
+<main>
+  <div class="lbl" data-t="apps"></div>
+  <div id="tiles"></div>
+</main>
+<footer>Bingin Villa Management</footer>
+</div>
+
+<div id="appview" hidden>
+  <!-- `credentialless` WAJIB: tanpa itu Chrome mengirim cookie Google HP dan, dengan 2+ akun Google, /exec dialihkan ke /u/N/
+       lalu "Sorry, we cannot open the file" (terbukti HP Android 3 akun, 18 Nov 2026). Harga: localStorage/IndexedDB app
+       di dalam frame ini hilang tiap halaman ini ditutup/dimuat ulang (PIN ditanya lagi). -->
+  <iframe id="app" title="BVM ONE" credentialless
+          allow="camera; microphone; geolocation; clipboard-read; clipboard-write; fullscreen; web-share; autoplay"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <div id="splash" role="status" aria-live="polite">
+    <div class="halo" aria-hidden="true"></div>
+    <svg class="mark glow" width="120" height="148" viewBox="0 0 220 272" aria-hidden="true"><path d="M0 0H220V128C220 206 165 250 110 272C55 250 0 206 0 128Z" fill="#C9A55C"/><path d="M0 0H220V128C220 206 165 250 110 272C55 250 0 206 0 128Z" fill="#1F3B31" transform="translate(110 136) scale(0.9) translate(-110 -136)"/><path d="M74 74 L106 46 H128 V200 H106 V82 L86 96 Z" fill="#C9A55C"/><path d="M128 162 H154 V176 H128 Z" fill="#C9A55C"/><path d="M128 184 H146 V200 H128 Z" fill="#C9A55C"/></svg>
+    <div class="sw glow" aria-label="BVM ONE"><b>BVM</b><i>ONE</i></div>
+    <div class="sub" id="splash-sub"></div>
+    <div class="slow">Still opening. Weak signal? Wait a moment.<br>Masih membuka. Sinyal lemah? Tunggu sebentar.<br><button type="button" id="retry">Try again / Coba lagi</button></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  // === KONFIGURASI: URL app per ubin. Kosong = "Segera hadir". Ganti di sini saja saat deployment berubah. ===
+  var APPS = {
+    utilities: 'https://script.google.com/macros/s/AKfycbyElmcgSB6XElc6Vh2ee7qIsk2bwwFCfrSXST4eA_j_qAMky0XqjzKgGv5hUHS390xz/exec',
+    launch: '', housekeeping: '', engineering: '', pool: ''
+  };
+  var SPLASH_SUB = { utilities: 'UTILITIES · AIR DAN LISTRIK' };
+  var TX = {
+    en: { hello: 'Pick the app for your work.', apps: 'APPS', soon: 'Coming soon', open: 'Open',
+          note: 'This app is not open yet. Your manager tells you when it starts.' },
+    id: { hello: 'Pilih app untuk pekerjaan Anda.', apps: 'APP', soon: 'Segera hadir', open: 'Buka',
+          note: 'App ini belum dibuka. Manajer Anda akan memberi tahu kapan mulai.' }
+  };
+  var LIST = [
+    { k: 'utilities', en: ['Utilities', 'Water and electricity'], id: ['Utilities', 'Air dan listrik'],
+      ic: '<path d="M14 4c4 5 7 8.5 7 12a7 7 0 0 1-14 0c0-3.5 3-7 7-12z" fill="#142A22"/><path d="M27 6l-6 10h5l-3 10 8-12h-5l3-8z" fill="#142A22"/>' },
+    { k: 'launch', en: ['Launch', 'New villas, step by step'], id: ['Launch', 'Vila baru, langkah demi langkah'],
+      ic: '<path d="M18 4c5 3 7 9 6 15l-3 3h-6l-3-3c-1-6 1-12 6-15z" fill="none" stroke="#C9A55C" stroke-width="2.4"/><circle cx="18" cy="13" r="2.6" fill="#C9A55C"/><path d="M15 25l-2 6M21 25l2 6" stroke="#C9A55C" stroke-width="2.4" stroke-linecap="round"/>' },
+    { k: 'housekeeping', en: ['Housekeeping', 'Rooms and linen'], id: ['Housekeeping', 'Kamar dan linen'],
+      ic: '<path d="M5 26V14M5 20h26v6M31 26v-6" stroke="#C9A55C" stroke-width="2.4" fill="none" stroke-linecap="round"/><rect x="9" y="15" width="8" height="5" rx="2" fill="#C9A55C"/>' },
+    { k: 'engineering', en: ['Engineering', 'Repairs and maintenance'], id: ['Engineering', 'Perbaikan dan perawatan'],
+      ic: '<path d="M23 6a6 6 0 0 0-6 8L7 24l3 3 10-10a6 6 0 0 0 8-6l-4 3-3-3 3-4z" fill="none" stroke="#C9A55C" stroke-width="2.4" stroke-linejoin="round"/>' },
+    { k: 'pool', en: ['Pool and Garden', 'Pool checks and garden care'], id: ['Pool and Garden', 'Cek kolam dan rawat kebun'],
+      ic: '<path d="M5 22c3 0 3 2 6.5 2S15 22 18 22s3 2 6.5 2S28 22 31 22M5 28c3 0 3 2 6.5 2S15 28 18 28s3 2 6.5 2S28 28 31 28" stroke="#C9A55C" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M18 18c0-6 4-10 9-11-1 6-4 10-9 11zM18 18c-1-4-4-7-8-7 1 4 3 7 8 7z" fill="#C9A55C"/>' }
+  ];
+  var lang = 'id';
+  try { var s = localStorage.getItem('bvmone_lang'); if (s === 'en' || s === 'id') lang = s; } catch (e) {}
+  var home = document.getElementById('home'), view = document.getElementById('appview'),
+      frame = document.getElementById('app'), splash = document.getElementById('splash'), current = null;
+
+  function esc(x) { return String(x).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function render() {
+    var T = TX[lang];
+    document.documentElement.lang = lang;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function (el) { el.textContent = T[el.getAttribute('data-t')]; });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-lang]'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang)); });
+    document.getElementById('tiles').innerHTML = LIST.map(function (a) {
+      var nm = a[lang], url = APPS[a.k], ic = '<span class="ic"><svg width="30" height="30" viewBox="0 0 36 36" aria-hidden="true">' + a.ic + '</svg></span>',
+          tx = '<span class="tx"><b>' + esc(nm[0]) + '</b><small>' + esc(nm[1]) + '</small></span>';
+      if (url) return '<button type="button" class="tile on" data-open="' + a.k + '" aria-label="' + esc(T.open + ' ' + nm[0]) + '">' + ic + tx + '<span class="go" aria-hidden="true">&rsaquo;</span></button>';
+      return '<button type="button" class="tile soon" data-soon="' + a.k + '" aria-expanded="false">' + ic + tx + '<span class="pill">' + esc(T.soon) + '</span></button>' +
+             '<div class="note" id="note-' + a.k + '" role="status">' + esc(T.note) + '</div>';
+    }).join('');
+  }
+
+  // --- buka / tutup app di halaman yang sama (JANGAN navigasi top: credentialless hilang) ---
+  function showApp(k) {
+    current = k;
+    document.getElementById('splash-sub').textContent = SPLASH_SUB[k] || '';
+    splash.classList.remove('hide'); splash.classList.remove('late');
+    home.hidden = true; view.hidden = false;
+    frame.src = APPS[k];
+  }
+  function showHome() {
+    current = null; view.hidden = true; home.hidden = false;
+    frame.removeAttribute('src');   // hentikan app; buka ulang = muat baru
+  }
+  function openApp(k, fromLink) {
+    if (!APPS[k]) return;
+    if (fromLink) history.replaceState({ v: 'home' }, '', location.pathname);   // back dari deep link -> ubin
+    history.pushState({ v: 'app', k: k }, '', location.pathname);
+    showApp(k);
+  }
+  window.addEventListener('popstate', function (ev) {
+    var st = ev.state;
+    if (st && st.v === 'app' && APPS[st.k]) showApp(st.k); else showHome();
+  });
+  frame.addEventListener('load', function () { if (frame.getAttribute('src')) splash.classList.add('hide'); });
+  setTimeout(function () { if (current && !splash.classList.contains('hide')) splash.classList.add('late'); }, 12000);
+  document.getElementById('retry').addEventListener('click', function () {
+    var k = current; if (!k) return; frame.removeAttribute('src'); setTimeout(function () { splash.classList.remove('late'); frame.src = APPS[k]; }, 50);
+  });
+
+  document.addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-lang]');
+    if (b) { lang = b.getAttribute('data-lang'); try { localStorage.setItem('bvmone_lang', lang); } catch (e) {} render(); return; }
+    var o = ev.target.closest('[data-open]');
+    if (o) { openApp(o.getAttribute('data-open'), false); return; }
+    var t = ev.target.closest('[data-soon]');
+    if (t) { var n = document.getElementById('note-' + t.getAttribute('data-soon')), on = !n.classList.contains('show'); n.classList.toggle('show', on); t.setAttribute('aria-expanded', String(on)); }
+  });
+
+  render();
+  var want = '';
+  try { want = (new URLSearchParams(location.search).get('app') || '').toLowerCase(); } catch (e) {}
+  if (want && APPS[want]) openApp(want, true); else history.replaceState({ v: 'home' }, '', location.href);
+  if ('serviceWorker' in navigator) { window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); }); }
+})();
+</script>
+</body>
+</html>
